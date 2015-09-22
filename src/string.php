@@ -786,7 +786,7 @@ class String {
 	* @access public
 	* @return string
 	*/
-	public function getLeftMost( $search ) {
+	public function getLeftMost( $sSearch ) {
 		$sSource = $this->value;
 		for ( $i = 0; $i < strlen( $sSource ); $i = $i + 1 ) {
 			$f = strpos( $sSource, $sSearch, $i );
