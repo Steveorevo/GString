@@ -1,6 +1,9 @@
 {
   "name": "steveorevo/string",
   "description": "Implements OOP String handling with useful parsing functions.",
+  "keywords": ["oop","string"],
+  "homepage": "https://github.com/Steveorevo/String",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
@@ -16,5 +19,8 @@
       "role": "developer"
     }
   ],
-  "require": {}
+  "require": {},
+  "autoload": {
+        "psr-4": {"Steveorevo\\": "src/"}
+    }
 }
