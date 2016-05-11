@@ -1,6 +1,6 @@
 <?php
 /**
- * String Class
+ * GString Class
  *
  * Implements OOP String handling with useful parsing functions. Strings
  * to be handled as objects and features my basic cross language parsing
@@ -13,8 +13,8 @@
  */
 namespace Steveorevo;
 
-if ( class_exists( 'String' ) ) return;
-class String {
+if ( class_exists( 'GString' ) ) return;
+class GString {
 	/**
 	 * Character mask for trim functions
 	 *
@@ -57,13 +57,13 @@ class String {
 		$value = (string) $original;
 		if ( $offset !== null && $length !== null ) {
 			if ( $offset < 0 ) {
-				throw new StringIndexOutOfBoundsException( $offset );
+				throw new GStringIndexOutOfBoundsException( $offset );
 			}
 			if ( $length < 0 ) {
-				throw new StringIndexOutOfBoundsException( $length );
+				throw new GStringIndexOutOfBoundsException( $length );
 			}
 			if ( $offset > strlen( $value ) - $length ) {
-				throw new StringIndexOutOfBoundsException( $offset + $length );
+				throw new GStringIndexOutOfBoundsException( $offset + $length );
 			}
 			$value = substr( $value, $offset, $length );
 		}
@@ -76,7 +76,7 @@ class String {
 	 * @return \String a copy of $this.
 	 */
 	public function __clone() {
-		return new String( $this );
+		return new GString( $this );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class String {
 	 */
 	public function charAt( $index ) {
 		if ( $index < 0 || $index >= $this->length() ) {
-			throw new StringIndexOutOfBoundsException( $index );
+			throw new GStringIndexOutOfBoundsException( $index );
 		}
 
 		return $this->value[ $index ];
@@ -158,7 +158,7 @@ class String {
 			$value .= (string) func_get_arg( $i );
 		}
 
-		return new String( $value );
+		return new GString( $value );
 	}
 
 	/**
@@ -231,10 +231,10 @@ class String {
 	 */
 	public static function format( $format ) {
 		if ( func_num_args() == 1 ) {
-			return new String( $format );
+			return new GString( $format );
 		}
 
-		return new String( call_user_func_array( "sprintf", func_get_args() ) );
+		return new GString( call_user_func_array( "sprintf", func_get_args() ) );
 	}
 
 	/**
@@ -320,7 +320,7 @@ class String {
 	 * @return \String the resulting string.
 	 */
 	public static function join( $separator, $elements = array() ) {
-		return new String( implode( $separator, $elements ) );
+		return new GString( implode( $separator, $elements ) );
 	}
 
 	/**
@@ -389,7 +389,7 @@ class String {
 	public function matches( $regex, & $matches = null ) {
 		$match = preg_match( $regex, $this->value, $matches );
 		for ( $i = 0, $l = count( $matches ); $i < $l; $i ++ ) {
-			$matches[ $i ] = new String( $matches[ $i ] );
+			$matches[ $i ] = new GString( $matches[ $i ] );
 		}
 
 		return $match == 1;
@@ -406,7 +406,7 @@ class String {
 	 * @return \String the resulting string.
 	 */
 	public function padLeft( $length, $padString ) {
-		return new String( str_pad( $this->value, $length, $padString, STR_PAD_LEFT ) );
+		return new GString( str_pad( $this->value, $length, $padString, STR_PAD_LEFT ) );
 	}
 
 	/**
@@ -420,7 +420,7 @@ class String {
 	 * @return \String the resulting string.
 	 */
 	public function padRight( $length, $padString ) {
-		return new String( str_pad( $this->value, $length, $padString, STR_PAD_RIGHT ) );
+		return new GString( str_pad( $this->value, $length, $padString, STR_PAD_RIGHT ) );
 	}
 
 	/**
@@ -438,7 +438,7 @@ class String {
 	 */
 	public function regionCompare( $offseta, $str, $offsetb, $length, $ignoreCase = false ) {
 		$a = $this->substring( $offseta );
-		$b = new String( $str );
+		$b = new GString( $str );
 		$b = $b->substring( $offsetb );
 		if ( $ignoreCase == false ) {
 			return strncmp( $a, $b, $length );
@@ -496,19 +496,19 @@ class String {
 	}
 
 	/**
-	 * Returns a new string resulting from replacing all occurrences of the search
+	 * Returns a new GString resulting from replacing all occurrences of the search
 	 * string with the replacement string.
 	 *
 	 * @access public
 	 *
 	 * @param string $search The old string
-	 * @param string $replacement The new string
+	 * @param string $replacement The new GString
 	 * @param int $count This will be set to the number of replacements performed
 	 *
 	 * @return \String the resulting string.
 	 */
 	public function replace( $search, $replacement, & $count = 0 ) {
-		return new String( str_replace( $search, $replacement, $this->value, $count ) );
+		return new GString( str_replace( $search, $replacement, $this->value, $count ) );
 	}
 
 	/**
@@ -525,7 +525,7 @@ class String {
 	 * @return \String the resulting string.
 	 */
 	public function replaceAll( $regex, $replacement, $limit = - 1, & $count = 0 ) {
-		return new String( preg_replace( $regex, $replacement, $this->value, $limit, $count ) );
+		return new GString( preg_replace( $regex, $replacement, $this->value, $limit, $count ) );
 	}
 
 	/**
@@ -544,29 +544,29 @@ class String {
 	}
 
 	/**
-	 * Returns a new string resulting from replacing all occurrences of the search
+	 * Returns a new GString resulting from replacing all occurrences of the search
 	 * string with the replacement string, ignoring case differences.
 	 *
 	 * @access public
 	 *
 	 * @param string $search The old string
-	 * @param string $replacement The new string
+	 * @param string $replacement The new GString
 	 * @param int $count This will be set to the number of replacements performed
 	 *
 	 * @return \String the resulting string.
 	 */
 	public function replaceIgnoreCase( $search, $replacement, & $count = 0 ) {
-		return new String( str_ireplace( $search, $replacement, $this->value, $count ) );
+		return new GString( str_ireplace( $search, $replacement, $this->value, $count ) );
 	}
 
 	/**
-	 * Returns a new string that is the reverse of this string.
+	 * Returns a new GString that is the reverse of this string.
 	 *
 	 * @access public
 	 * @return \String the string, reversed.
 	 */
 	public function reverse() {
-		return new String( strrev( $this->value ) );
+		return new GString( strrev( $this->value ) );
 	}
 
 	/**
@@ -582,7 +582,7 @@ class String {
 	public function split( $regex, $limit = - 1 ) {
 		$parts = preg_split( $regex, $this->value, $limit );
 		for ( $i = 0, $l = count( $parts ); $i < $l; $i ++ ) {
-			$parts[ $i ] = new String( $parts[ $i ] );
+			$parts[ $i ] = new GString( $parts[ $i ] );
 		}
 
 		return $parts;
@@ -606,7 +606,7 @@ class String {
 	}
 
 	/**
-	 * Returns a new string that is a substring of this string.
+	 * Returns a new GString that is a substring of this string.
 	 *
 	 * @access public
 	 *
@@ -618,32 +618,32 @@ class String {
 	 */
 	public function substring( $beginIndex, $endIndex = null ) {
 		if ( $beginIndex < 0 ) {
-			throw new StringIndexOutOfBoundsException( $beginIndex );
+			throw new GStringIndexOutOfBoundsException( $beginIndex );
 		} else if ( $beginIndex == $this->length() ) {
-			return new String( "" );
+			return new GString( "" );
 		}
 		if ( $endIndex === null ) {
 			$length = $this->length() - $beginIndex;
 			if ( $length < 0 ) {
-				throw new StringIndexOutOfBoundsException( $length );
+				throw new GStringIndexOutOfBoundsException( $length );
 			}
 			if ( $beginIndex == 0 ) {
 				return $this;
 			} else {
-				return new String( $this->value, $beginIndex, $length );
+				return new GString( $this->value, $beginIndex, $length );
 			}
 		} else {
 			if ( $endIndex > $this->length() ) {
-				throw new StringIndexOutOfBoundsException( $endIndex );
+				throw new GStringIndexOutOfBoundsException( $endIndex );
 			}
 			$length = $endIndex - $beginIndex;
 			if ( $length < 0 ) {
-				throw new StringIndexOutOfBoundsException( $length );
+				throw new GStringIndexOutOfBoundsException( $length );
 			}
 			if ( $beginIndex == 0 && $endIndex == $this->length() ) {
 				return $this;
 			} else {
-				return new String( $this->value, $beginIndex, $length );
+				return new GString( $this->value, $beginIndex, $length );
 			}
 		}
 	}
@@ -668,7 +668,7 @@ class String {
 	 * @return \String the string, converted to lowercase.
 	 */
 	public function toLowerCase() {
-		return new String( strtolower( $this->value ) );
+		return new GString( strtolower( $this->value ) );
 	}
 
 	/**
@@ -678,7 +678,7 @@ class String {
 	 * @return \String the string, converted to uppercase.
 	 */
 	public function toUpperCase() {
-		return new String( strtoupper( $this->value ) );
+		return new GString( strtoupper( $this->value ) );
 	}
 
 	/**
@@ -691,7 +691,7 @@ class String {
 	 * @return \String a copy of this string with leading and trailing white space removed.
 	 */
 	public function trim( $characterMask = self::TRIM_CHARACTER_MASK ) {
-		return new String( trim( $this->value, $characterMask ) );
+		return new GString( trim( $this->value, $characterMask ) );
 	}
 
 	/**
@@ -704,7 +704,7 @@ class String {
 	 * @return \String a copy of this string with leading white space removed.
 	 */
 	public function trimLeft( $characterMask = self::TRIM_CHARACTER_MASK ) {
-		return new String( ltrim( $this->value, $characterMask ) );
+		return new GString( ltrim( $this->value, $characterMask ) );
 	}
 
 	/**
@@ -717,7 +717,7 @@ class String {
 	 * @return \String a copy of this string with trailing white space removed.
 	 */
 	public function trimRight( $characterMask = self::TRIM_CHARACTER_MASK ) {
-		return new String( rtrim( $this->value, $characterMask ) );
+		return new GString( rtrim( $this->value, $characterMask ) );
 	}
 
 	/**
@@ -732,12 +732,12 @@ class String {
 		for ( $i = strlen( $sSource ); $i >= 0; $i = $i - 1 ) {
 			$f = strpos( $sSource, $sSearch, $i );
 			if ( $f !== false ) {
-				return new String( substr( $sSource, 0, $f ) );
+				return new GString( substr( $sSource, 0, $f ) );
 				break;
 			}
 		}
 
-		return new String( $sSource );
+		return new GString( $sSource );
 	}
 
 	/**
@@ -752,12 +752,12 @@ class String {
 		for ( $i = 0; $i < strlen( $sSource ); $i = $i + 1 ) {
 			$f = strpos( $sSource, $sSearch, $i );
 			if ( $f !== false ) {
-				return new String( substr( $sSource, $f + strlen( $sSearch ), strlen( $sSource ) ) );
+				return new GString( substr( $sSource, $f + strlen( $sSearch ), strlen( $sSource ) ) );
 				break;
 			}
 		}
 
-		return new String( $sSource );
+		return new GString( $sSource );
 	}
 
 	/**
@@ -772,11 +772,11 @@ class String {
 		for ( $i = strlen( $sSource ); $i >= 0; $i = $i - 1 ) {
 			$f = strpos( $sSource, $sSearch, $i );
 			if ( $f !== false ) {
-				return new String( substr( $sSource, $f + strlen( $sSearch ), strlen( $sSource ) ) );
+				return new GString( substr( $sSource, $f + strlen( $sSearch ), strlen( $sSource ) ) );
 			}
 		}
 
-		return new String( $sSource );
+		return new GString( $sSource );
 	}
 
 	/**
@@ -791,12 +791,12 @@ class String {
 		for ( $i = 0; $i < strlen( $sSource ); $i = $i + 1 ) {
 			$f = strpos( $sSource, $sSearch, $i );
 			if ( $f !== false ) {
-				return new String( substr( $sSource, 0, $f ) );
+				return new GString( substr( $sSource, 0, $f ) );
 				break;
 			}
 		}
 
-		return new String( $sSource );
+		return new GString( $sSource );
 	}
 
 	/**
@@ -806,7 +806,7 @@ class String {
 	* @return string
 	*/
 	public function left( $chars ) {
-		return new String( substr( $this->value, 0, $chars ) );
+		return new GString( substr( $this->value, 0, $chars ) );
 	}
 
 	/**
@@ -816,23 +816,23 @@ class String {
 	* @return string
 	*/
 	public function right( $chars ) {
-		return new String( substr( $this->value, ( $chars * - 1 ) ) );
+		return new GString( substr( $this->value, ( $chars * - 1 ) ) );
 	}
 }
 
-if ( ! function_exists( "String" ) ) {
+if ( ! function_exists( "GString" ) ) {
 	/**
-	 * Wrapper for creating a new String.
+	 * Wrapper for creating a new GString.
 	 *
 	 * @param mixed $str The string.
 	 *
-	 * @return \String
+	 * @return \GString
 	 */
-	function String( $str = "" ) {
-		if ( $str instanceof String ) {
+	function GString( $str = "" ) {
+		if ( $str instanceof GString ) {
 			return clone $str;
 		}
 
-		return new String( $str );
+		return new GString( $str );
 	}
 }
