@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright 2015 Stephen Carnam, http://stevreorevo.com
+Copyright 2016 Stephen Carnam, http://stevreorevo.com
 ---------------------------------------------------------------
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
