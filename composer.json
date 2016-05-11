@@ -1,8 +1,8 @@
 {
-  "name": "steveorevo/string",
+  "name": "steveorevo/gstring",
   "description": "Implements OOP String handling with useful parsing functions.",
   "keywords": ["oop","string"],
-  "homepage": "https://github.com/Steveorevo/String",
+  "homepage": "https://github.com/Steveorevo/GString",
   "type": "library",
   "license": "MIT",
   "authors": [
